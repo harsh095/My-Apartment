@@ -5,6 +5,8 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:my_apart/add_members.dart';
 import 'package:my_apart/admin_login.dart';
 import 'package:my_apart/chat/Admin/pages/group_page_admin.dart';
+import 'package:my_apart/maintenance/admin_maintenance.dart';
+
 import 'package:my_apart/member_list.dart';
 import 'package:my_apart/admin_profile.dart';
 
@@ -19,6 +21,9 @@ class admin_home extends StatelessWidget
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
+     // body:
+
+
       
     );
     
@@ -139,6 +144,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
                 ),
+                 ListTile(
+                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => admin_maint()));},
+                  leading: Icon(Icons.attach_money_outlined),
+                  title: Text('Money'),
+                ),
+
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(

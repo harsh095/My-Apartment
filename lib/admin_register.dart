@@ -138,15 +138,18 @@ class _admin_registerState extends State<admin_register> {
                           child: ElevatedButton(
                             child:Text("Register"),
                             onPressed: ()  {
-                              if(form_key.currentState!.validate())
+                             if(form_key.currentState!.validate())
                               {
                                 FirebaseAuth.instance.createUserWithEmailAndPassword
-                                  (email: emailEditController.text, password: passEditController.text
-                                )
-                                    .then((value) { Navigator.push(context, MaterialPageRoute(builder: (context) => page1()));
-                                Fluttertoast.showToast(msg: "Registration Successful");
-                                FirebaseAuth.instance.signOut();
+                                  (email: emailEditController.text, password: passEditController.text)
+                                    .then((value) { FirebaseAuth.instance.signOut();
 
+                                FirebaseFirestore.instance.collection("Secretary").doc(FirebaseAuth.instance.currentUser!.uid).collection("Total")
+                                    .doc().set({
+                                  'total_income':0,
+                                  'total_expense':0,
+                                  'userUid':FirebaseAuth.instance.currentUser!.uid,
+                                });
                                 Collection.doc(FirebaseAuth.instance.currentUser!.uid).set(
                                     {
                                       'Name':nameEditController.text,
@@ -158,16 +161,8 @@ class _admin_registerState extends State<admin_register> {
                                       'userUid':FirebaseAuth.instance.currentUser!.uid
                                     }
                                 );
-                                  /*Map<String,String> user =
-                                {
-                                  'Name':nameEditController.text,
-                                  'Email':emailEditController.text,
-                                  'Password':passEditController.text,
-                                  'Role':dropdownValue
-                                };
-
-                                db.push().set(user);*/
-
+                                Fluttertoast.showToast(msg: "Registration Successful");
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => page1()));
                                 }).catchError((e)
                                 {
                                   Fluttertoast.showToast(msg: "Registration Failed");

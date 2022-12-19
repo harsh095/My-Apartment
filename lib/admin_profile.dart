@@ -67,14 +67,14 @@ class _profile_adminState extends State<profile_admin> {
                 width: double.infinity,
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                   Text('Name : '+name,style: TextStyle(fontSize: 25),),
                   Text('Email : '+email,style: TextStyle(fontSize: 25),),
                   Text('Flte NO : '+flat_no,style: TextStyle(fontSize:25),),
                   Text('No Of vehicles : '+vehicles,style: TextStyle(fontSize: 25),)
-                     
-                   
+
+
                   ],
                 ),
               )

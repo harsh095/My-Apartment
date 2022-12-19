@@ -7,6 +7,8 @@ import 'package:my_apart/admin_home.dart';
 import 'package:my_apart/admin_register.dart';
 import 'package:my_apart/forget_password_admin.dart';
 
+import 'f_login.dart';
+
 
 
 class admin_login extends StatefulWidget {
@@ -25,6 +27,10 @@ class _admin_loginState extends State<admin_login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(backgroundColor: Colors.white,
+            leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.black,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => f_login()));
+            },
+            )),
       backgroundColor: Colors.white,
       body: Form(
         key: form_key,

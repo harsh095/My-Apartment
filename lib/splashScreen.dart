@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_apart/Auth/email_aauth_Sec.dart';
 import 'package:my_apart/Auth/otp_Auth_Sec.dart';
+import 'package:my_apart/maintenance/admin_maintenance.dart';
 import 'package:my_apart/member_list.dart';
 import 'package:my_apart/page1.dart';
 import 'package:my_apart/admin_profile.dart';
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
         super.initState();
-        Timer(Duration(seconds: 4), ()
+        Timer(Duration(seconds: 2), ()
         {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => page1() )));
         });

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_apart/admin_home.dart';
 import 'package:my_apart/admin_login.dart';
+import 'package:my_apart/member_list.dart';
 
 
 class SignUpScreen extends StatefulWidget {
@@ -196,7 +197,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   FirebaseAuth.instance.signOut();
                                   // Navigator.push(context, MaterialPageRoute(builder: (context) =>admin_home()));
                                   //FirebaseAuth.instance.signInWithEmailAndPassword(email: , password:);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => admin_home()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => member_list()));
                                   //FirebaseAuth.instance.tenantId(user.uid);
                                 });
                                 FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
