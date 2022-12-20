@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:my_apart/admin_home.dart';
 import 'package:my_apart/admin_login.dart';
 import 'package:my_apart/constants/colors.dart';
 import 'package:my_apart/maintenance/add_trans_ex.dart';
@@ -22,7 +23,7 @@ class select_maint extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Color(0xffF9A826),
             leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (() { Navigator.push(context,
-                MaterialPageRoute(builder: (context) => admin_maint())); }) ),
+                MaterialPageRoute(builder: (context) => admin_home())); }) ),
           ),
           backgroundColor: Colors.white,
           body: Container(

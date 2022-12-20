@@ -6,11 +6,16 @@ import 'package:my_apart/add_members.dart';
 import 'package:my_apart/admin_login.dart';
 import 'package:my_apart/chat/Admin/pages/group_page_admin.dart';
 import 'package:my_apart/maintenance/admin_maintenance.dart';
+import 'package:my_apart/maintenance/ex_admin_show.dart';
 
 import 'package:my_apart/member_list.dart';
 import 'package:my_apart/admin_profile.dart';
 
 import 'package:sidebarx/sidebarx.dart';
+
+import 'constants/colors.dart';
+import 'maintenance/ad_income_show.dart';
+import 'maintenance/select_maint.dart';
 
 
 
@@ -56,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         
         appBar: AppBar(
-          backgroundColor: Color(0xffF9A826),
+          backgroundColor: Colors.orangeAccent,
           title: Center(child: const Text('My Apartment',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
           
           leading: IconButton(
@@ -87,7 +92,342 @@ class _HomeScreenState extends State<HomeScreen> {
       )
     ),]
         ),
-        body: Container(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Transform.rotate(
+                    origin: Offset(30, -60),
+                    angle: 2.4,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        left: 75,
+                        top: 40,
+                      ),
+                      height: 400,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(80),
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          colors: [Color(0xffF9A826), Colors.blueGrey],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Glassify Transaction',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Glassify this transaction into a \n pticular catigory ',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/img_9.png',
+                                            width: 120,
+                                            height: 120,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Profile',
+                                            style: TextStyle(color: Color(0xFF47B4FF), fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:(){Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => profile_admin()));},
+                                  ),
+
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/img_10.png',
+                                            width: 120,
+                                            height: 120,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Add Member',
+                                            style: TextStyle(color: Colors.lightGreenAccent, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:(){Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => SignUpScreen()));},
+                                  ),
+
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/img_11.png',
+                                            width: 120,
+                                            height: 120,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Member List',
+                                            style: TextStyle(color: prime, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => member_list()));} ,
+                                  ),
+
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: 5,),
+                                          Image.asset(
+                                            'assets/images/img_12.png',
+                                            width: 120,
+                                            height: 120,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Add Transection',
+                                            style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => select_maint()));},
+                                  ),
+
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: 13,),
+                                          Image.asset(
+                                            'assets/images/img_13.png',
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Income List',
+                                            style: TextStyle(color: Colors.green, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => income_admin()));},
+                                  ),
+
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/img_14.png',
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Expance List',
+                                            style: TextStyle(color: Colors.redAccent, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => expance_admin()));},
+                                  ),
+
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 177,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+
+                                          Image.asset(
+                                            'assets/images/img_15.png',
+                                            width: 150,
+                                            height: 150,
+                                          ),
+
+                                          Text(
+                                            'Asset Manage',
+                                            style: TextStyle(color: Colors.lightBlueAccent, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => admin_maint()));},
+                                  ),
+
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 177,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/img_16.png',
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Text(
+                                            'Setting',
+                                            style: TextStyle(color: Colors.yellowAccent, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {},
+                                  ),
+
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
       drawer: SafeArea(
         child: Container(

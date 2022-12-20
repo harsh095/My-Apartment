@@ -38,7 +38,7 @@ class _income_adminState extends State<income_admin> {
     return Scaffold(
       appBar: AppBar(elevation: 0,title: Text("Income",style: TextStyle(color: Colors.white),),
           backgroundColor: prime,
-          leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_maint()));
+          leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_home()));
           },
           )),
       body: StreamBuilder(

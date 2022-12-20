@@ -136,46 +136,6 @@ class _admin_maintState extends State<admin_maint> with TickerProviderStateMixin
 
             ),
             SizedBox(height: 40,),
-            SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-
-                    child: Text(
-                      'Show Income Transaction',
-                      style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: prime,
-
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => income_admin()));
-                    }
-
-
-
-                                    )),
-            SizedBox(height: 20,),
-            SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-
-                    child: Text(
-                      'Show Expance Transaction',
-                      style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: prime,
-
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => expance_admin()));
-                    }
-
-                )),
-
 
 
 

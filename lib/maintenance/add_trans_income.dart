@@ -98,7 +98,7 @@ class _add_trans_inState extends State<add_trans_in> {
         appBar: AppBar(
           backgroundColor: prime,
           leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (() { Navigator.push(context,
-              MaterialPageRoute(builder: (context) => select_maint())); }) ),
+              MaterialPageRoute(builder: (context) => admin_home())); }) ),
         ),
         backgroundColor: Colors.white,
         body: Form(

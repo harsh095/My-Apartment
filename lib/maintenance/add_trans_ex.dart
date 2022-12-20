@@ -94,7 +94,7 @@ TextEditingController moneyEditController = TextEditingController();
         appBar: AppBar(
           backgroundColor: prime,
           leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (() { Navigator.push(context,
-              MaterialPageRoute(builder: (context) => select_maint())); }) ),
+              MaterialPageRoute(builder: (context) => admin_home())); }) ),
         ),
         backgroundColor: Colors.white,
         body: Form(
