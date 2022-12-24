@@ -1,9 +1,11 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/admin_home.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
 
 class profile_admin extends StatefulWidget {
   const profile_admin({super.key});
@@ -19,8 +21,10 @@ class _profile_adminState extends State<profile_admin> {
   String email = "";
   String flat_no = "";
   String vehicles = "";
+  String id="";
     Future get() async
   {
+    id=FirebaseAuth.instance.currentUser!.uid;
     FirebaseFirestore.instance
         .collection('Secretary')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -34,6 +38,7 @@ class _profile_adminState extends State<profile_admin> {
           email = snapshot.data()!["Email"];
           flat_no = snapshot.data()!["Flat Number"];
           vehicles = snapshot.data()!["Number of vehicles"];
+
         }
         );
       }
@@ -72,7 +77,11 @@ class _profile_adminState extends State<profile_admin> {
                   Text('Name : '+name,style: TextStyle(fontSize: 25),),
                   Text('Email : '+email,style: TextStyle(fontSize: 25),),
                   Text('Flte NO : '+flat_no,style: TextStyle(fontSize:25),),
-                  Text('No Of vehicles : '+vehicles,style: TextStyle(fontSize: 25),)
+                  Text('No Of vehicles : '+vehicles,style: TextStyle(fontSize: 25),),
+                    SelectableText('Unique ID  : '+id,style: TextStyle(fontSize: 20),),
+
+
+
 
 
                   ],
@@ -83,7 +92,8 @@ class _profile_adminState extends State<profile_admin> {
           CustomPaint(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height
+
             ),
             painter:  HeaderCurvedContaine(),
           ),

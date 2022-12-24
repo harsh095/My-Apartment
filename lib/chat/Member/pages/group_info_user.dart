@@ -8,7 +8,7 @@ import 'package:my_apart/chat/Member/widgets/widgets_user.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/user_home.dart';
+import 'package:my_apart/Mamber/user_home.dart';
 
 class GroupInfoUser extends StatefulWidget {
   final String groupId;

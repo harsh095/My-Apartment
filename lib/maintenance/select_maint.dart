@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:my_apart/admin_home.dart';
-import 'package:my_apart/admin_login.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
+import 'package:my_apart/Sacretary/admin_login.dart';
 import 'package:my_apart/constants/colors.dart';
 import 'package:my_apart/maintenance/add_trans_ex.dart';
 import 'package:my_apart/maintenance/add_trans_income.dart';
 import 'package:my_apart/maintenance/admin_maintenance.dart';
-import 'package:my_apart/user_login.dart';
+import 'package:my_apart/Mamber/user_login.dart';
 
 class select_maint extends StatelessWidget {
   get container => null;

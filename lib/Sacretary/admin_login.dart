@@ -3,10 +3,11 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_apart/admin_home.dart';
-import 'package:my_apart/admin_register.dart';
-import 'package:my_apart/forget_password_admin.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
+import 'package:my_apart/Sacretary/admin_register.dart';
+import 'package:my_apart/Sacretary/forget_password_admin.dart';
 
+import '../constants/colors.dart';
 import 'f_login.dart';
 
 
@@ -27,7 +28,8 @@ class _admin_loginState extends State<admin_login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.white,title: Text("Secertory Login",style: TextStyle(color: prime,fontWeight: FontWeight.bold),),
+
             leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.black,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => f_login()));
             },
             )),
@@ -55,7 +57,7 @@ class _admin_loginState extends State<admin_login> {
                 SizedBox(
                   height: 25.0,
                 ),
-                Text("Secertory Login",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+
                
            Container(
                       padding:

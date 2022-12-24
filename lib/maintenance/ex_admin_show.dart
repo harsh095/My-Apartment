@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../admin_home.dart';
+import '../Sacretary/admin_home.dart';
 import '../constants/colors.dart';
 import 'admin_maintenance.dart';
 

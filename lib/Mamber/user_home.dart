@@ -1,13 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/admin_home.dart';
+import 'package:my_apart/Mamber/request_member.dart';
+import 'package:my_apart/Mamber/user_profile.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
+import 'package:my_apart/Sacretary/f_login.dart';
 import 'package:my_apart/chat/Member/pages/group_page_user.dart';
 import 'package:my_apart/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
-import 'package:my_apart/user_login.dart';
-import 'package:my_apart/user_profile.dart';
+import 'package:my_apart/Mamber/user_login.dart';
+
 
 class user_home extends StatefulWidget
 {
@@ -122,6 +125,12 @@ class _h1State extends State<h1> {
                   leading: Icon(Icons.account_circle_rounded),
                   title: Text('Profile'),
                 ),
+                ListTile(
+                  onTap: () {Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => request()));},
+                  leading: Icon(Icons.account_circle_rounded),
+                  title: Text('Request'),
+                ),
                
                 
                 ListTile(
@@ -132,7 +141,7 @@ class _h1State extends State<h1> {
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => user_login()));
+                        context, MaterialPageRoute(builder: (context) => f_login()));
                   });
                     },
                   leading: Icon(Icons.logout),

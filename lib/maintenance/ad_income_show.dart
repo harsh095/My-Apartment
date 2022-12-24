@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flat_3d_button/flat_3d_button.dart';
 import 'package:flutter/material.dart';
 
-import '../admin_home.dart';
+import '../Sacretary/admin_home.dart';
 import '../constants/colors.dart';
 import 'admin_maintenance.dart';
 

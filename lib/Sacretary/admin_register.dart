@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_apart/admin_login.dart';
+import 'package:my_apart/Sacretary/admin_login.dart';
 import 'package:my_apart/page1.dart';
 
 

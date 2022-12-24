@@ -3,8 +3,8 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/admin_home.dart';
-import 'package:my_apart/user_home.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
+import 'package:my_apart/Mamber/user_home.dart';
 
 // ignore: camel_case_types
 class user_profile extends StatefulWidget {

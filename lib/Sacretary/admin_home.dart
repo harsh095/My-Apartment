@@ -2,20 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
-import 'package:my_apart/add_members.dart';
-import 'package:my_apart/admin_login.dart';
+import 'package:my_apart/Mamber/mamber_register.dart';
+import 'package:my_apart/Sacretary/admin_login.dart';
+import 'package:my_apart/Sacretary/f_login.dart';
+import 'package:my_apart/Sacretary/request_sec_fun.dart';
 import 'package:my_apart/chat/Admin/pages/group_page_admin.dart';
 import 'package:my_apart/maintenance/admin_maintenance.dart';
 import 'package:my_apart/maintenance/ex_admin_show.dart';
 
-import 'package:my_apart/member_list.dart';
-import 'package:my_apart/admin_profile.dart';
+import 'package:my_apart/Sacretary/member_list.dart';
+import 'package:my_apart/Sacretary/admin_profile.dart';
 
 import 'package:sidebarx/sidebarx.dart';
 
-import 'constants/colors.dart';
-import 'maintenance/ad_income_show.dart';
-import 'maintenance/select_maint.dart';
+import '../constants/colors.dart';
+import '../maintenance/ad_income_show.dart';
+import '../maintenance/select_maint.dart';
 
 
 
@@ -204,8 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                     ),
-                                    onTap:(){Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => SignUpScreen()));},
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => request_admin()));},
                                   ),
 
                                 ],
@@ -467,12 +469,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   leading: Icon(Icons.account_circle_rounded),
                   title: Text('Profile'),
                 ),
-                ListTile(
-                  onTap: () { {Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()));}},
-                  leading: Icon(Icons.add_circle_outline_outlined),
-                  title: Text('Add Member'),
-                ),
+
                   ListTile(
                   onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => member_list()));
                   },
@@ -493,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => admin_login()));
+                        context, MaterialPageRoute(builder: (context) => f_login()));
                   });
                     },
                   leading: Icon(Icons.logout),

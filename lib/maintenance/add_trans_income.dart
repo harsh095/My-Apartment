@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_apart/maintenance/ad_income_show.dart';
 
-import '../admin_home.dart';
+import '../Sacretary/admin_home.dart';
 import '../constants/colors.dart';
 import '../maintenance/select_maint.dart';
 import 'admin_maintenance.dart';

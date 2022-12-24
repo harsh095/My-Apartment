@@ -3,13 +3,12 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_apart/admin_home.dart';
-import 'package:my_apart/admin_register.dart';
-import 'package:my_apart/forget_password_admin.dart';
-import 'package:my_apart/forget_password_user.dart';
-import 'package:my_apart/user_home.dart';
 
-import 'f_login.dart';
+import 'package:my_apart/Mamber/user_home.dart';
+
+import '../Sacretary/f_login.dart';
+import 'forget_password_user.dart';
+import 'mamber_register.dart';
 
 class user_login extends StatefulWidget {
   const user_login({Key? key}) : super(key: key);
@@ -112,8 +111,9 @@ class _user_loginState extends State<user_login> {
                               }
                             }),
                         SizedBox(
-                          height: 30.0,
+                          height:10.0,
                         ),
+
                         TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -123,6 +123,18 @@ class _user_loginState extends State<user_login> {
                                           forgot_password_member()));
                             },
                             child: Text('Forget Password?')),
+                        SizedBox(
+                          height:20.0,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          member_register()));
+                            },
+                            child: Text('Sing in?')),
                         SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_apart/admin_home.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
 import 'package:my_apart/constants/colors.dart';
 import 'package:my_apart/maintenance/ex_admin_show.dart';
 import 'package:my_apart/maintenance/select_maint.dart';

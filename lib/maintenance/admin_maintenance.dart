@@ -5,7 +5,7 @@ import 'package:my_apart/maintenance/add_trans_income.dart';
 import 'package:my_apart/maintenance/select_maint.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../admin_home.dart';
+import '../Sacretary/admin_home.dart';
 import '../constants/colors.dart';
 import 'ad_income_show.dart';
 import 'ex_admin_show.dart';

@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flat_3d_button/flat_3d_button.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/admin_home.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
 
 class member_list extends StatefulWidget {
   const member_list({Key? key}) : super(key: key);
