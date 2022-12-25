@@ -291,31 +291,26 @@ class _requestState extends State<request> {
                     }
                     )).whenComplete(() {
                       showDialog(context: context, builder: (context){
-                        return AlertDialog(title:  Text("Send Request",style: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold ),),
+                        return AlertDialog(title:  Text("Send Request"),
                           actions: [
                             Flat3dButton(onPressed:(){
                               Navigator.pop(context);
                             } ,child: Text("Cancel"),
-                              color: Colors.orange,
-
                             ),
                             Flat3dButton(onPressed:() async {
                               if(flag>0)
                               {
                                 showDialog(context: context, builder: (context){
-                                  return AlertDialog(title: Text("Error",style: TextStyle(fontWeight: FontWeight.bold),),
+                                  return AlertDialog(title: Text("Error"),
                                     content: Text("Your request cant send because for this date another request already been sent by another member "
-                                        "You can send when that request will reject",style: TextStyle(fontStyle: FontStyle.italic),),
-
+                                        "You can send when that request will reject"),
                                     actions: [
                                       Flat3dButton(onPressed:(){
                                         Navigator.pop(context);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => request_admin()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => request()));
                                       } ,child: Text("OK"),
-                                        color: Colors.orange,
                                       ),
                                     ],
-
                                   );
                                 });
 
@@ -332,9 +327,16 @@ class _requestState extends State<request> {
                                       'userUid':FirebaseAuth.instance.currentUser!.uid,
                                     }
                                 ).then((value) {
+                                  String request = discriptionEditController.text;
                                   // ignore: unrelated_type_equality_checks
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => user_home()));
                                   Fluttertoast.showToast(msg: "Request Send Successfully");
+
+                                  FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Members").doc(FirebaseAuth.instance.currentUser!.uid)
+                                      .update({
+                                    'Event_request_answer':"Your Request for $request is Sent to Secretary"
+                                  });
+
                                   //flag = 0;
                                 }).catchError((e)
                                 {
@@ -343,7 +345,6 @@ class _requestState extends State<request> {
                                 );
                               }
                             } ,child: Text("Send"),
-                              color: Colors.orange,
                             )
                           ],
                         );
@@ -356,6 +357,7 @@ class _requestState extends State<request> {
               ),
             ),
             Container(child: Center(child: Text(res)),),
+
 
           ]),
         ));
