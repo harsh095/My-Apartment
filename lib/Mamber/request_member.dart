@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_apart/Mamber/user_home.dart';
+import 'package:my_apart/Sacretary/admin_home.dart';
 import 'package:my_apart/Sacretary/request_sec_fun.dart';
 
 import '../constants/colors.dart';
@@ -98,13 +99,15 @@ class _requestState extends State<request> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Text(
-            'Request for Use',
+            'Request for Event',
             style: TextStyle(
                 color: prime, fontWeight: FontWeight.bold, fontSize: 25),
           ),
@@ -213,7 +216,7 @@ class _requestState extends State<request> {
                       style: TextStyle(fontSize: 20.0),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Amount cannot be empty";
+                          return "Description cannot be empty";
                         }
                       }),
                 ),
@@ -324,6 +327,7 @@ class _requestState extends State<request> {
                                       'date':s1[0],
                                       'description':discriptionEditController.text,
                                       'time':timeEditController.text,
+                                      'Answer':"",
                                       'userUid':FirebaseAuth.instance.currentUser!.uid,
                                     }
                                 ).then((value) {

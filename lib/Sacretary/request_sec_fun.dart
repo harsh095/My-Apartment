@@ -46,11 +46,12 @@ class _request_adminState extends State<request_admin> {
 
     super.initState();
   }
+  String ans = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,title: Text("Members",style: TextStyle(color: prime),),
+      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,title: Text("pending  Events",style: TextStyle(color: prime),),
           leading: IconButton(icon: Icon(Icons.arrow_back,color: prime,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_home()));
           },
           )),
@@ -76,45 +77,66 @@ class _request_adminState extends State<request_admin> {
                     subtitle: Text("Discription : "+document['description'], style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blueGrey,fontSize: 10),textScaleFactor: 1.5,
                     ),
                     onTap: (){
-                      showDialog(context: context, builder: (context){
-                        return AlertDialog(title:  Text("What would you like to do?",style: TextStyle(color: Colors.blueGrey),),
+                      FirebaseFirestore.instance.collection("Secretary").doc(FirebaseAuth.instance.currentUser!.uid).collection("Event_Request")
+                          .doc(document['userUid']).get().then((value) {
+                        ans = value.get("Answer");
 
-                          actions: [
-                            Flat3dButton(onPressed:(){
-                              memberCollection.doc(FirebaseAuth.instance.currentUser!.uid).collection("Members").doc(document['userUid'])
-                                  .update({
-                                'Event_request_answer':"Your last request for"+document['description']+" is accepted",
-                              }).then((value) {
-                                Collection.doc(document['userUid']).delete().whenComplete(
-                                        () => Navigator.pop(context)
-                                );
-                                Fluttertoast.showToast(msg: "Request Accepted",);
-                              });
-
-                            } ,child: Text("Accept"),
-                              color: Colors.orange,
-                            ),
-                            Flat3dButton(onPressed:() {
-                              memberCollection.doc(FirebaseAuth.instance.currentUser!.uid).collection("Members").doc(document['userUid'])
-                                  .update({
-                                'Event_request_answer':"Your last request for"+document['description']+" is rejected",
-                              }).then((value) {
-                                Collection.doc(document['userUid']).delete().whenComplete(
-                                        () => Navigator.pop(context)
-                                );
-                                Fluttertoast.showToast(msg: "Request rejected",);
-                              });
-                            } ,child: Text("Reject"),
-                              color: Colors.orange,
-                            ),
-                            Flat3dButton(onPressed:(){
-                              Navigator.pop(context);
-                            } ,child: Text("Cancel"),
-                              color: Colors.orange,
-                            ),
-                          ],
-                        );
+                        if(ans.isEmpty)
+                        {
+                          showDialog(context: context, builder: (context){
+                            return AlertDialog(title:  Text("What would you like to do?"),
+                              actions: [
+                                Flat3dButton(onPressed:(){
+                                  memberCollection.doc(FirebaseAuth.instance.currentUser!.uid).collection("Members").doc(document['userUid'])
+                                      .update({
+                                    'Event_request_answer':"Your last request for "+document['description']+" is accepted",
+                                  }).then((value) {
+                                    Collection.doc(document['userUid']).update({
+                                      'Answer':'Accepted'
+                                    }).whenComplete(() =>Navigator.pop(context)).then((value)
+                                    {
+                                      Fluttertoast.showToast(msg: "Request Accepted",);
+                                    });
+                                  });
+                                } ,child: Text("Accept"),
+                                ),
+                                Flat3dButton(onPressed:() {
+                                  memberCollection.doc(FirebaseAuth.instance.currentUser!.uid).collection("Members").doc(document['userUid'])
+                                      .update({
+                                    'Event_request_answer':"Your last request for "+document['description']+" is rejected",
+                                  }).then((value) {
+                                    Collection.doc(document['userUid']).delete().whenComplete(
+                                            () => Navigator.pop(context)
+                                    );
+                                    Fluttertoast.showToast(msg: "Request rejected",);
+                                  });
+                                } ,child: Text("Reject"),
+                                ),
+                                Flat3dButton(onPressed:(){
+                                  Navigator.pop(context);
+                                } ,child: Text("Cancel"),
+                                ),
+                              ],
+                            );
+                          });
+                        }
+                        else
+                        {
+                          showDialog(context: context, builder: (context){
+                            return AlertDialog(title: Text("Notice"),
+                              content: Text("This request is already Accepted"),
+                              actions: [
+                                Flat3dButton(onPressed:(){
+                                  Navigator.pop(context);
+                                } ,child: Text("OK"),
+                                ),
+                              ],
+                            );
+                          });
+                        }
                       });
+
+
                     }
                 ),
               );

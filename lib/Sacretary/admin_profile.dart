@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
 
 class profile_admin extends StatefulWidget {
@@ -22,9 +24,34 @@ class _profile_adminState extends State<profile_admin> {
   String flat_no = "";
   String vehicles = "";
   String id="";
-    Future get() async
+  String imageUrl = "";
+
+  void pickImage() async
   {
-    id=FirebaseAuth.instance.currentUser!.uid;
+    final image  = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 512,
+        maxHeight: 512,
+        imageQuality: 75
+    );
+
+    Reference ref = FirebaseStorage.instance.ref().child(FirebaseAuth.instance.currentUser!.uid);
+    await ref.putFile(File(image!.path));
+
+    ref.getDownloadURL().then((value) {
+      setState(() {
+        imageUrl = value;
+        FirebaseFirestore.instance.collection("Secretary").doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          'Profile_Image':imageUrl
+        });
+      });
+
+    });
+  }
+
+  Future get() async
+  {
     FirebaseFirestore.instance
         .collection('Secretary')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -38,6 +65,7 @@ class _profile_adminState extends State<profile_admin> {
           email = snapshot.data()!["Email"];
           flat_no = snapshot.data()!["Flat Number"];
           vehicles = snapshot.data()!["Number of vehicles"];
+          imageUrl = snapshot.data()!["Profile_Image"];
 
         }
         );
@@ -107,23 +135,31 @@ class _profile_adminState extends State<profile_admin> {
                 color: Colors.white,
                 fontWeight: FontWeight.w600),),
               ),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width/2,
-                  height: MediaQuery.of(context).size.width/2,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white,width: 5),
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/images/profile.png'),
+    GestureDetector(
+    onTap: (){
+    pickImage();
+    },
+    child: Container(
+    padding: EdgeInsets.all(10.0),
+    width: MediaQuery.of(context).size.width/2,
+    height: MediaQuery.of(context).size.width/2,
+    decoration: BoxDecoration(
+    border: Border.all(color: Colors.white,width: 5),
+    shape: BoxShape.circle,
+    color: Colors.white,
+    image:  DecorationImage(
+    fit: BoxFit.cover,
+    image:NetworkImage(imageUrl),
 
-                    ),
-                     )
+    ),
+
+    ),
+    ),
+    ),
 
 
-                  ),
+
+
 
               
             ],

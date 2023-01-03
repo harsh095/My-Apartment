@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/maintenance/add_trans_income.dart';
-import 'package:my_apart/maintenance/select_maint.dart';
+import 'package:my_apart/assets/add_trans_income.dart';
+import 'package:my_apart/assets/select_maint.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Sacretary/admin_home.dart';

@@ -158,6 +158,8 @@ class _admin_registerState extends State<admin_register> {
                                       'Flat Number':flatEditController.text,
                                       'Number of vehicles':vehicleEditController.text,
                                       "groups": [],
+                                      "Profile_Image": "",
+                                      "Amount_of_Maintenance":0,
                                       'userUid':FirebaseAuth.instance.currentUser!.uid
                                     }
                                 );

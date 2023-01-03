@@ -1,23 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
-import 'package:my_apart/Mamber/mamber_register.dart';
-import 'package:my_apart/Sacretary/admin_login.dart';
 import 'package:my_apart/Sacretary/f_login.dart';
 import 'package:my_apart/Sacretary/request_sec_fun.dart';
 import 'package:my_apart/chat/Admin/pages/group_page_admin.dart';
-import 'package:my_apart/maintenance/admin_maintenance.dart';
-import 'package:my_apart/maintenance/ex_admin_show.dart';
-
+import 'package:my_apart/assets/admin_maintenance.dart';
+import 'package:my_apart/assets/ex_admin_show.dart';
 import 'package:my_apart/Sacretary/member_list.dart';
 import 'package:my_apart/Sacretary/admin_profile.dart';
-
-import 'package:sidebarx/sidebarx.dart';
-
+import '../Payment/payment.dart';
 import '../constants/colors.dart';
-import '../maintenance/ad_income_show.dart';
-import '../maintenance/select_maint.dart';
+import '../assets/ad_income_show.dart';
+import '../assets/select_maint.dart';
+
+import '../maintenance/maintenance_admin.dart';
+import '../maintenance/maintenance_paid_list.dart';
+import 'my_apartment_admin.dart';
 
 
 
@@ -43,6 +42,27 @@ class admin_home extends StatelessWidget
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var name ="",email="",imageUrl="";
+
+  late TextEditingController t1;
+  fetch() async
+  {
+    FirebaseFirestore.instance.collection("Secretary").doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value){
+      setState(() {
+        name = value.get("Name");
+        email = value.get("Email");
+        imageUrl = value.get("Profile_Image");
+      });
+    });
+  }
+  @override
+  void initState() {
+    fetch();
+    // TODO: implement initState
+    super.initState();
+  }
   final _advancedDrawerController = AdvancedDrawerController();
 
   @override
@@ -57,15 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
       // openScale: 1.0,
       disabledGestures: false,
       childDecoration: const BoxDecoration(
-    
+
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
       child: Scaffold(
-        
+
         appBar: AppBar(
           backgroundColor: Colors.orangeAccent,
           title: Center(child: const Text('My Apartment',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-          
+
           leading: IconButton(
             onPressed: _handleMenuButtonPressed,
             icon: ValueListenableBuilder<AdvancedDrawerValue>(
@@ -192,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 7,
                                           ),
                                           Image.asset(
-                                            'assets/images/img_10.png',
+                                            'assets/images/abc.png',
                                             width: 120,
                                             height: 120,
                                           ),
@@ -200,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 10,
                                           ),
                                           Text(
-                                            'Add Member',
+                                            'pending  Events',
                                             style: TextStyle(color: Colors.lightGreenAccent, fontSize: 18,fontWeight: FontWeight.bold),
                                           ),
                                         ],
@@ -208,6 +228,79 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     onTap:() {Navigator.push(context,
                                         MaterialPageRoute(builder: (context) => request_admin()));},
+                                  ),
+
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/main.png',
+                                            width: 120,
+                                            height: 120,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Pay Maintenance',
+                                            style: TextStyle(color: Colors.teal, fontSize: 15,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:(){Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => maintenance_admin()));},
+                                  ),
+
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 167,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/img_17.png',
+                                            width: 120,
+                                            height: 120,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Paid Maint List',
+                                            style: TextStyle(color: Colors.black54, fontSize: 18,fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onTap:() {Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => maintenance_paid_list()));},
                                   ),
 
                                 ],
@@ -442,6 +535,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   width: 128.0,
                   height: 128.0,
+
+
+
+
                   margin: const EdgeInsets.only(
                     top: 24.0,
                     bottom: 64.0,
@@ -450,12 +547,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                     color: Colors.black26,
                     shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white, //                   <--- border color
+                      width: 2.0,
+                    ),
+                    image:  DecorationImage(
+                      fit: BoxFit.cover,
+                      image:NetworkImage(imageUrl),
+
+                    ),
                   ),
-                  child: Image.asset(
-                    'assets/images/profile.png',
-                  ),
-                
-                  
+
                 ),
                                 ListTile(
                   onTap: ()  {Navigator.push(context,
@@ -476,16 +578,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   leading: Icon(Icons.list_outlined),
                   title: Text('Members List'),
                 ),
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
+
                  ListTile(
                   onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => admin_maint()));},
-                  leading: Icon(Icons.attach_money_outlined),
-                  title: Text('Money'),
+                  leading: Icon(Icons.assessment_outlined),
+                  title: Text('Assets'),
                 ),
+                ListTile(
+                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => maintenance_admin()));},
+                  leading: Icon(Icons.monetization_on_outlined),
+                  title: Text(' Pay Maintenance '),
+                ),
+                ListTile(
+                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => maintenance_paid_list()));},
+                  leading: Icon(Icons.checklist_rounded),
+                  title: Text('Maintenance List '),
+                ),
+                ListTile(
+                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => my_apartment_admin()));},
+                  leading: Icon(Icons.account_balance_outlined),
+                  title: Text('About Us'),
+                ),
+
 
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {

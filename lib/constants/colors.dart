@@ -4,6 +4,7 @@ const tPrimaryColor = Color(0xffFFFFE400);
 const tSecoundaryColor = Color(0xff272727);
 const tAccentColor = Color(0xff001BFF);
 const prime= Color(0xffF9A826);
+const blg= Colors.blueGrey;
 
 
 const tWhiteColor = Colors.white;
