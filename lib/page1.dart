@@ -3,12 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
-import 'package:my_apart/Sacretary/f_login.dart';
+import 'package:my_apart/f_login.dart';
 import 'package:my_apart/Mamber/user_home.dart';
-//import 'package:my_apartment/admin_home.dart';
-//import 'package:my_apartment/chek_auth.dart';
-//import 'package:my_apartment/f_login.dart';
-//import 'package:my_apartment/user_home.dart';
 
 class page1 extends StatefulWidget {
   const page1({Key? key}) : super(key: key);

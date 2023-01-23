@@ -66,7 +66,7 @@ class _profile_adminState extends State<profile_admin> {
           flat_no = snapshot.data()!["Flat Number"];
           vehicles = snapshot.data()!["Number of vehicles"];
           imageUrl = snapshot.data()!["Profile_Image"];
-
+          id=FirebaseAuth.instance.currentUser!.uid;
         }
         );
       }
@@ -92,6 +92,7 @@ class _profile_adminState extends State<profile_admin> {
       body: Stack(
         alignment: Alignment.center,
         children: [
+
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -102,10 +103,10 @@ class _profile_adminState extends State<profile_admin> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                  Text('Name : '+name,style: TextStyle(fontSize: 25),),
-                  Text('Email : '+email,style: TextStyle(fontSize: 25),),
-                  Text('Flte NO : '+flat_no,style: TextStyle(fontSize:25),),
-                  Text('No Of vehicles : '+vehicles,style: TextStyle(fontSize: 25),),
+                  Text('Name : '+name,style: TextStyle(fontSize: 20),),
+                  Text('Email : '+email,style: TextStyle(fontSize: 20),),
+                  Text('Flat NO : '+flat_no,style: TextStyle(fontSize:20),),
+                  Text('No of Vehicles : '+vehicles,style: TextStyle(fontSize: 20),),
                     SelectableText('Unique ID  : '+id,style: TextStyle(fontSize: 20),),
 
 
@@ -114,7 +115,8 @@ class _profile_adminState extends State<profile_admin> {
 
                   ],
                 ),
-              )
+              ),
+
             ],
           ),
           CustomPaint(

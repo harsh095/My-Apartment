@@ -8,7 +8,7 @@ import 'package:my_apart/Sacretary/admin_register.dart';
 import 'package:my_apart/Sacretary/forget_password_admin.dart';
 
 import '../constants/colors.dart';
-import 'f_login.dart';
+import '../f_login.dart';
 
 
 

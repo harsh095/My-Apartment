@@ -6,6 +6,8 @@ import 'package:my_apart/Mamber/user_home.dart';
 import 'package:my_apart/Mamber/user_login.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
 
+import '../page1.dart';
+
 class member_register extends StatefulWidget {
   const member_register({Key? key}) : super(key: key);
 
@@ -216,88 +218,56 @@ class _member_registerstate extends State<member_register> {
                                 ),
                                 onPressed: () {
                                   if (form_key.currentState!.validate()) {
-                                    FirebaseFirestore.instance
-                                        .collection("Secretary")
-                                        .get()
-                                        .then((value) =>
-                                            // ignore: avoid_function_literals_in_foreach_calls
-                                            value.docs.forEach((snapshot) {
-                                              // ignore: unrelated_type_equality_checks, unnecessary_null_comparison
-                                              FirebaseFirestore.instance
-                                                  .collection("Secretary")
-                                                  .doc(snapshot.id)
-                                                  .get()
-                                                  .then((value) {
-                                                userid = value.get("userUid");
-                                                if (keyEditController.text ==
-                                                    userid) {
-                                                  FirebaseAuth.instance
-                                                      .createUserWithEmailAndPassword(
-                                                          email:
-                                                              emailEditController
-                                                                  .text,
-                                                          password:
-                                                              passEditController
-                                                                  .text)
-                                                      .then((value) {
-                                                    FirebaseFirestore.instance
-                                                        .collection("Secretary")
-                                                        .doc(keyEditController
-                                                            .text)
-                                                        .collection("Members")
-                                                        .doc(FirebaseAuth
-                                                            .instance
-                                                            .currentUser!
-                                                            .uid)
-                                                        .set({
-                                                      'Name': nameEditController
-                                                          .text,
-                                                      'Email':
-                                                          emailEditController
-                                                              .text,
-                                                      'Password':
-                                                          passEditController
-                                                              .text,
-                                                      'Flat Number':
-                                                          flatEditController
-                                                              .text,
-                                                      'Event_request_answer':
-                                                          "Notification will update when you send request and secretary replay to your request",
-                                                      'Number of vehicles':
-                                                          vehicleEditController
-                                                              .text,
-                                                      "groups": [],
-                                                      'userUid': FirebaseAuth
-                                                          .instance
-                                                          .currentUser!
-                                                          .uid,
-                                                      'AdminUid':
-                                                          keyEditController.text
-                                                    }).then((value) {
-                                                      Fluttertoast.showToast(
-                                                          msg:
-                                                              "Registration Successful");
-                                                      // Navigator.push(context, MaterialPageRoute(builder: (context) =>admin_home()));
-                                                      //FirebaseAuth.instance.signInWithEmailAndPassword(email: , password:);
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  user_home()));
-                                                      //FirebaseAuth.instance.tenantId(user.uid);
-                                                    });
-                                                  }).catchError((e) {
-                                                    Fluttertoast.showToast(
-                                                        msg:
-                                                            "Registration Failed");
-                                                  });
-                                                } else {
-                                                  Fluttertoast.showToast(
-                                                      msg:
-                                                          "Registration Failed");
+                                    FirebaseFirestore.instance.collection("Secretary").get().then((value) =>
+                                    // ignore: avoid_function_literals_in_foreach_calls
+                                    value.docs.forEach((snapshot)
+                                    {
+                                      // ignore: unrelated_type_equality_checks, unnecessary_null_comparison
+                                      FirebaseFirestore.instance.collection("Secretary").doc(snapshot.id)
+                                          .get()
+                                          .then((value)
+                                      {
+                                        userid = value.get("userUid");
+                                        if(keyEditController.text == userid)
+                                        {
+                                          FirebaseAuth.instance
+                                              .createUserWithEmailAndPassword
+                                            (email: emailEditController.text,
+                                              password: passEditController.text
+                                          ).then((value) {
+                                            FirebaseAuth.instance.signOut();
+                                            FirebaseFirestore.instance.collection("Secretary").doc(keyEditController.text).collection(
+                                                "Members").doc(
+                                                FirebaseAuth.instance.currentUser!.uid).
+                                            set(
+                                                {
+                                                  'Name':nameEditController.text,
+                                                  'Email':emailEditController.text,
+                                                  'Password':passEditController.text,
+                                                  'Flat Number':flatEditController.text,
+                                                  'Event_request_answer':"Notification will update when you send request and secretary replay to your request",
+                                                  'Number of vehicles':vehicleEditController.text,
+                                                  "groups": [],
+                                                  'userUid':FirebaseAuth.instance.currentUser!.uid,
+                                                  'Profile_Image':"",
+                                                  'AdminUid':keyEditController.text
                                                 }
-                                              });
-                                            }));
+                                            ).then((value) {
+                                              Fluttertoast.showToast(
+                                                  msg: "Registration Successful");
+                                              // Navigator.push(context, MaterialPageRoute(builder: (context) =>admin_home()));
+                                              //FirebaseAuth.instance.signInWithEmailAndPassword(email: , password:);
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => page1()));
+                                              //FirebaseAuth.instance.tenantId(user.uid);
+                                            });
+                                          }).catchError((e) {
+                                            Fluttertoast.showToast(
+                                                msg: "Registration Failed");
+                                          });
+                                        }
+                                      });
+                                    }
+                                    ));
                                   }
                                 }),
                           ),

@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
 
         debugShowCheckedModeBanner: false,
         title: 'My Apartment',
+
         theme: ThemeData(
+
           fontFamily : GoogleFonts.lato().fontFamily,
         ),
         home: SplashScreen(),

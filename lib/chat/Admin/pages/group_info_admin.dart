@@ -1,6 +1,7 @@
 
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_apart/chat/Admin/widgets/widgets_admin.dart';
@@ -23,7 +24,7 @@ class GroupInfoAdmin extends StatefulWidget {
   @override
   State<GroupInfoAdmin> createState() => _GroupInfoAdminState();
 }
-
+String s_name = "";
 class _GroupInfoAdminState extends State<GroupInfoAdmin> {
   Stream? members;
   @override
@@ -31,6 +32,8 @@ class _GroupInfoAdminState extends State<GroupInfoAdmin> {
     getMembers();
     super.initState();
   }
+
+
 
   getMembers() async {
     DatabaseServiceAdmin(uid: FirebaseAuth.instance.currentUser!.uid)
@@ -61,6 +64,7 @@ class _GroupInfoAdminState extends State<GroupInfoAdmin> {
         actions: [
           IconButton(
               onPressed: () {
+
                 
                 AwesomeDialog(
             context: context,
@@ -74,7 +78,12 @@ class _GroupInfoAdminState extends State<GroupInfoAdmin> {
           //  title: 'This is Ignored',
            // desc:   'This is also Ignored',
             btnCancelOnPress: () {  Navigator.pop(context);},
-            btnOkOnPress: () { DatabaseServiceAdmin(
+            btnOkOnPress: () {
+              FirebaseFirestore.instance.collection("Secretary").doc(FirebaseAuth.instance.currentUser!.uid).collection("groups")
+                  .doc(widget.groupId).update({
+                "members": FieldValue.arrayRemove(["${FirebaseAuth.instance.currentUser!.uid}_$s_name"])
+              });
+              DatabaseServiceAdmin(
                                       uid: FirebaseAuth
                                           .instance.currentUser!.uid)
                                   .toggleGroupJoin(

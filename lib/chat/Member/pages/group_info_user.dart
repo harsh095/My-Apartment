@@ -26,6 +26,7 @@ class GroupInfoUser extends StatefulWidget {
 }
 String userid = "";
 String id = "";
+String m_name = "";
 
 class _GroupInfoUserState extends State<GroupInfoUser> {
   Stream? members;
@@ -99,6 +100,10 @@ class _GroupInfoUserState extends State<GroupInfoUser> {
            // desc:   'This is also Ignored',
             btnCancelOnPress: () {  Navigator.pop(context);},
             btnOkOnPress: () {
+              FirebaseFirestore.instance.collection("Secretary").doc(id).collection("groups")
+                  .doc(widget.groupId).update({
+                "members": FieldValue.arrayRemove(["${FirebaseAuth.instance.currentUser!.uid}_$m_name"])
+              });
                               DatabaseServiceUser(
                                   uid: FirebaseAuth
                                       .instance.currentUser!.uid,auid: id)

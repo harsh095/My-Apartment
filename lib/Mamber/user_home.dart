@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:my_apart/Mamber/request_member.dart';
 import 'package:my_apart/Mamber/user_profile.dart';
 
-import 'package:my_apart/Sacretary/f_login.dart';
+import 'package:my_apart/f_login.dart';
 import 'package:my_apart/chat/Member/pages/group_page_user.dart';
 import 'package:my_apart/maintenance/maintenance_member.dart';
 
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
 import '../constants/colors.dart';
+import 'compain_member.dart';
 import 'my_apartment_member.dart';
 
 
@@ -300,7 +301,9 @@ class _h1State extends State<h1> {
                                         ],
                                       ),
                                     ),
-                                    onTap:() {},
+
+                                      onTap:() {Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Complain_member()));},
                                   ),
 
                                 ],

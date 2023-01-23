@@ -2,23 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:my_apart/Sacretary/f_login.dart';
+import 'package:my_apart/f_login.dart';
 import 'package:my_apart/Sacretary/request_sec_fun.dart';
 import 'package:my_apart/chat/Admin/pages/group_page_admin.dart';
 import 'package:my_apart/assets/admin_maintenance.dart';
 import 'package:my_apart/assets/ex_admin_show.dart';
 import 'package:my_apart/Sacretary/member_list.dart';
 import 'package:my_apart/Sacretary/admin_profile.dart';
-import '../Payment/payment.dart';
 import '../constants/colors.dart';
 import '../assets/ad_income_show.dart';
 import '../assets/select_maint.dart';
-
 import '../maintenance/maintenance_admin.dart';
 import '../maintenance/maintenance_paid_list.dart';
+import 'compain_sec.dart';
 import 'my_apartment_admin.dart';
-
-
 
 class admin_home extends StatelessWidget
 {
@@ -83,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
 
         appBar: AppBar(
-          backgroundColor: Colors.orangeAccent,
+          elevation: 0,
+          backgroundColor: Colors.orangeAccent.withOpacity(0.9),
           title: Center(child: const Text('My Apartment',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
 
           leading: IconButton(
@@ -101,422 +99,423 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-         actions: <Widget>[
-    Padding(
-      padding: EdgeInsets.only(right: 20.0),
-      child: GestureDetector(
-        onTap: () {Navigator.push(
-                                    context, MaterialPageRoute(builder: (context) => GroupPageAdmin()));},
-        child: Icon(
-          Icons.message,
-          size: 26.0,
-        ),
-      )
-    ),]
+         
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Stack(
-                children: [
-                  Transform.rotate(
-                    origin: Offset(30, -60),
-                    angle: 2.4,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        left: 75,
-                        top: 40,
-                      ),
-                      height: 400,
-                      width: double.infinity,
+              Container(
+
+                height: 150,
+
+                child: Stack(
+                  children: [
+
+                    Container(
+                      padding: EdgeInsets.only(left: 20,),
+                      height: 127,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomLeft,
-                          colors: [Color(0xffF9A826), Colors.blueGrey],
-                        ),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(36),
+                          bottomRight: Radius.circular(36)
+                        )
+                      ),
+                      child: Row(
+                        children: [
+
+                          Text('Welcome '+name+'!',style: TextStyle(color: Colors.white,fontSize: 23,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic) ,),
+                          Spacer(),
+                          IconButton(
+                            icon: Image.asset('assets/images/chat.png'),
+                            iconSize: 120,
+                            onPressed: () {Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => GroupPageAdmin()));},
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Glassify Transaction',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
+
+
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+
+                  Stack(
+                    children: [
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/img_9.png',
+                                                width: 120,
+                                                height: 120,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Profile',
+                                                style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:(){Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => profile_admin()));},
+                                      ),
+
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 7,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/abc.png',
+                                                width: 120,
+                                                height: 120,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'pending  Events',
+                                                style: TextStyle(color:blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => request_admin()));},
+                                      ),
+
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/main.png',
+                                                width: 120,
+                                                height: 120,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Pay Maintenance',
+                                                style: TextStyle(color: blg, fontSize: 15,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:(){Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => maintenance_admin()));},
+                                      ),
+
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 7,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/img_17.png',
+                                                width: 120,
+                                                height: 120,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Paid Maint List',
+                                                style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => maintenance_paid_list()));},
+                                      ),
+
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+
+                                            children: [
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/img_11.png',
+                                                width: 120,
+                                                height: 120,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Member List',
+                                                style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => member_list()));} ,
+                                      ),
+
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 5,),
+                                              Image.asset(
+                                                'assets/images/img_12.png',
+                                                width: 120,
+                                                height: 120,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                  'Add Transection',
+                                                style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => select_maint()));},
+                                      ),
+
+                                    ],
+                                  ),
+                                  SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 13,),
+                                              Image.asset(
+                                                'assets/images/img_13.png',
+                                                width: 100,
+                                                height: 100,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Income List',
+                                                style: TextStyle(color:blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => income_admin()));},
+                                      ),
+
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 167,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/img_14.png',
+                                                width: 100,
+                                                height: 100,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Expance List',
+                                                style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => expance_admin()));},
+                                      ),
+
+                                    ],
+                                  ),
+                                  SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 177,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+
+                                              Image.asset(
+                                                'assets/images/img_15.png',
+                                                width: 150,
+                                                height: 150,
+                                              ),
+
+                                              Text(
+                                                'Asset Manage',
+                                                style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap:() {Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => admin_maint()));},
+                                      ),
+
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 177,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/img_16.png',
+                                                width: 100,
+                                                height: 100,
+                                              ),
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                'Setting',
+                                                style: TextStyle(color:blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+
+                                          onTap:() {Navigator.push(context,
+      MaterialPageRoute(builder: (context) => Complain_Admin()));},
+                                      ),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Glassify this transaction into a \n pticular catigory ',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_9.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Profile',
-                                            style: TextStyle(color: Color(0xFF47B4FF), fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:(){Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => profile_admin()));},
-                                  ),
-
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/abc.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'pending  Events',
-                                            style: TextStyle(color: Colors.lightGreenAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => request_admin()));},
-                                  ),
-
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/main.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Pay Maintenance',
-                                            style: TextStyle(color: Colors.teal, fontSize: 15,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:(){Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => maintenance_admin()));},
-                                  ),
-
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_17.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Paid Maint List',
-                                            style: TextStyle(color: Colors.black54, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => maintenance_paid_list()));},
-                                  ),
-
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-
-                                        children: [
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_11.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Member List',
-                                            style: TextStyle(color: prime, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => member_list()));} ,
-                                  ),
-
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 5,),
-                                          Image.asset(
-                                            'assets/images/img_12.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                              'Add Transection',
-                                            style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => select_maint()));},
-                                  ),
-
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 13,),
-                                          Image.asset(
-                                            'assets/images/img_13.png',
-                                            width: 100,
-                                            height: 100,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Income List',
-                                            style: TextStyle(color: Colors.green, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => income_admin()));},
-                                  ),
-
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_14.png',
-                                            width: 100,
-                                            height: 100,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Expance List',
-                                            style: TextStyle(color: Colors.redAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => expance_admin()));},
-                                  ),
-
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 177,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-
-                                          Image.asset(
-                                            'assets/images/img_15.png',
-                                            width: 150,
-                                            height: 150,
-                                          ),
-
-                                          Text(
-                                            'Asset Manage',
-                                            style: TextStyle(color: Colors.lightBlueAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => admin_maint()));},
-                                  ),
-
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 177,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_16.png',
-                                            width: 100,
-                                            height: 100,
-                                          ),
-                                          SizedBox(
-                                            height: 30,
-                                          ),
-                                          Text(
-                                            'Setting',
-                                            style: TextStyle(color: Colors.yellowAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {},
-                                  ),
-
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
