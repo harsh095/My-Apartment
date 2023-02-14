@@ -15,7 +15,7 @@ class member_list extends StatefulWidget {
 class _member_listState extends State<member_list> {
   final user = FirebaseAuth.instance.currentUser;
   final CollectionReference Collection = FirebaseFirestore.instance.collection("Secretary").doc(FirebaseAuth.instance.currentUser!.uid).collection("Members");
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth= FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

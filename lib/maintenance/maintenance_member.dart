@@ -97,7 +97,7 @@ class _maintenance_memberState extends State<maintenance_member> {
               id = snapshot.id;
 
               FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Total").get().then((value) =>
-                  value.docs.forEach((snapshot)
+                  value.docs.forEach( (snapshot)
                   {
                     FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Total").doc(snapshot.id).get().then((value) {
                       userid2 = value.get("userUid");

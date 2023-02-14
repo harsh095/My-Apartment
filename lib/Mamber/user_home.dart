@@ -12,6 +12,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
 import '../constants/colors.dart';
 import 'compain_member.dart';
+import 'forget_password_user.dart';
 import 'my_apartment_member.dart';
 
 
@@ -379,14 +380,22 @@ class _h1State extends State<h1> {
                   leading: Icon(Icons.event),
                   title: Text('Request for Event'),
                 ),
-               
-                
+
+
                 ListTile(
                   onTap: () {},
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
                 ),
-
+                ListTile(
+                  onTap: () {FirebaseAuth.instance.signOut().then((value) {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => forgot_password_member()));
+                  });
+                  },
+                  leading: Icon(Icons.key_off),
+                  title: Text('Forget Password'),
+                ),
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(

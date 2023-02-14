@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_apart/Sacretary/admin_login.dart';
 
+import '../constants/colors.dart';
+
 
 
 class forgot_password_admin extends StatefulWidget {
@@ -41,9 +43,11 @@ class _forgot_password_admin extends State<forgot_password_admin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(elevation: 0,title: Text("Reset Password",style: TextStyle(color: Colors.white),),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_login()));},),
+        appBar: AppBar(elevation: 0,title: Text("Reset Password",style: TextStyle(color: prime),
         ),
+          leading: IconButton(icon: Icon(Icons.arrow_back,color:prime,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_login()));},),
+          backgroundColor: Colors.white,),
+
         body: Form
           (
             key: form_key,
@@ -51,36 +55,42 @@ class _forgot_password_admin extends State<forgot_password_admin> {
               children: [
                 SizedBox(height: 10,),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Text("Enter your email and after you will ger password reset link",style: TextStyle(color: Colors.deepOrangeAccent,
+                  child: Text("Enter your email and after you will ger password reset link!",style: TextStyle(color: Colors.blueGrey,
                       fontWeight:FontWeight.bold ,fontSize: 20),),
                 ),
 
                 SizedBox(height: 30,),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 30),
                   child:TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                          filled: true,
-                          hintText: "Email",
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                          fillColor: Colors.grey.shade100
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Email cannot be empty";
-                        }
-                      }
+    controller: emailController,
+    decoration: const InputDecoration(
+    label: Text("Enter Email"),
+    prefixIcon: Icon(
+    Icons.email_outlined,
+    color: Color(0xffF9A826),
+    ),
+    border: OutlineInputBorder(),
+    labelStyle: TextStyle(color: Colors.blueGrey),
+    focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    width: 3.0, color: Colors.blueGrey))),
+    validator: (value) {
+    if (value!.isEmpty) {
+    return "Email cannot be empty";
+    }
+    }
+
                   ),
-                ),
-                SizedBox(height: 20,),
-                MaterialButton(onPressed: (){
-                  if(form_key.currentState!.validate())
-                  {
-                    passwordReset();
-                  }
-                },
+                ), SizedBox(height: 20,),
+            MaterialButton(onPressed: (){
+              if(form_key.currentState!.validate())
+              {
+                passwordReset();
+              }
+            },
+
                   child: Text("Reset Password"),
-                  color: Colors.lightBlue,
+                  color:prime,
                 ),
 
               ],

@@ -218,23 +218,25 @@ class _member_registerstate extends State<member_register> {
                                 ),
                                 onPressed: () {
                                   if (form_key.currentState!.validate()) {
-                                    FirebaseFirestore.instance.collection("Secretary").get().then((value) =>
+                                    FirebaseFirestore.instance.collection("Secretary").get()
+                                    .then(
+                                            (value) =>
                                     // ignore: avoid_function_literals_in_foreach_calls
-                                    value.docs.forEach((snapshot)
-                                    {
+                                            value.docs.forEach(   (snapshot)
+                                             {
                                       // ignore: unrelated_type_equality_checks, unnecessary_null_comparison
-                                      FirebaseFirestore.instance.collection("Secretary").doc(snapshot.id)
-                                          .get()
-                                          .then((value)
-                                      {
-                                        userid = value.get("userUid");
-                                        if(keyEditController.text == userid)
-                                        {
-                                          FirebaseAuth.instance
-                                              .createUserWithEmailAndPassword
-                                            (email: emailEditController.text,
-                                              password: passEditController.text
-                                          ).then((value) {
+                                               FirebaseFirestore.instance.collection("Secretary").doc(snapshot.id)
+                                                .get()
+                                                .then(  (value)
+                                                               {
+                                                                  userid = value.get("userUid");
+                                                                  if(keyEditController.text == userid)
+                                                                 {
+                                                                    FirebaseAuth.instance
+                                                                        .createUserWithEmailAndPassword
+                                                                      (email: emailEditController.text,
+                                                                        password: passEditController.text
+                                                                    ).then((value) {
                                             FirebaseAuth.instance.signOut();
                                             FirebaseFirestore.instance.collection("Secretary").doc(keyEditController.text).collection(
                                                 "Members").doc(

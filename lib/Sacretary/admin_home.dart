@@ -14,7 +14,8 @@ import '../assets/ad_income_show.dart';
 import '../assets/select_maint.dart';
 import '../maintenance/maintenance_admin.dart';
 import '../maintenance/maintenance_paid_list.dart';
-import 'compain_sec.dart';
+import 'complain_sec.dart';
+import 'forget_password_admin.dart';
 import 'my_apartment_admin.dart';
 
 class admin_home extends StatelessWidget
@@ -589,9 +590,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(' Pay Maintenance '),
                 ),
                 ListTile(
-                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => maintenance_paid_list()));},
+                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => forgot_password_admin()));},
                   leading: Icon(Icons.checklist_rounded),
-                  title: Text('Maintenance List '),
+                  title: Text('Forget Password '),
                 ),
                 ListTile(
                   onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => my_apartment_admin()));},
