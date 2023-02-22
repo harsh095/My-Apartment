@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:my_apart/f_login.dart';
 import 'package:my_apart/Sacretary/request_sec_fun.dart';
 import 'package:my_apart/chat/Admin/pages/group_page_admin.dart';
 import 'package:my_apart/assets/admin_maintenance.dart';
@@ -15,8 +14,11 @@ import '../assets/select_maint.dart';
 import '../maintenance/maintenance_admin.dart';
 import '../maintenance/maintenance_paid_list.dart';
 import 'complain_sec.dart';
+import 'darshit.dart';
 import 'forget_password_admin.dart';
-import 'my_apartment_admin.dart';
+import 'aboutUS.dart';
+
+import '../Main_Login.dart';
 
 class admin_home extends StatelessWidget
 {
@@ -215,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 10,
                                               ),
                                               Text(
-                                                'pending  Events',
+                                                'Pending Events',
                                                 style: TextStyle(color:blg, fontSize: 18,fontWeight: FontWeight.bold),
                                               ),
                                             ],
@@ -488,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 20,
                                               ),
                                               Image.asset(
-                                                'assets/images/img_16.png',
+                                                'assets/images/com.png',
                                                 width: 100,
                                                 height: 100,
                                               ),
@@ -496,7 +498,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 30,
                                               ),
                                               Text(
-                                                'Setting',
+                                                'Complain List',
                                                 style: TextStyle(color:blg, fontSize: 18,fontWeight: FontWeight.bold),
                                               ),
                                             ],
@@ -579,23 +581,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text('Members List'),
                 ),
 
-                 ListTile(
-                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => admin_maint()));},
-                  leading: Icon(Icons.assessment_outlined),
-                  title: Text('Assets'),
-                ),
-                ListTile(
-                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => maintenance_admin()));},
-                  leading: Icon(Icons.monetization_on_outlined),
-                  title: Text(' Pay Maintenance '),
-                ),
+
                 ListTile(
                   onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => forgot_password_admin()));},
                   leading: Icon(Icons.checklist_rounded),
                   title: Text('Forget Password '),
                 ),
                 ListTile(
-                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => my_apartment_admin()));},
+                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => AboutPage()));},
                   leading: Icon(Icons.account_balance_outlined),
                   title: Text('About Us'),
                 ),
@@ -604,7 +597,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => f_login()));
+                        context, MaterialPageRoute(builder: (context) => main_login()));
                   });
                     },
                   leading: Icon(Icons.logout),

@@ -1,8 +1,5 @@
 import 'dart:async';
-
-
 import 'package:flutter/material.dart';
-
 import 'package:my_apart/page1.dart';
 
 

@@ -51,7 +51,7 @@ class _request_adminState extends State<request_admin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,title: Text("pending  Events",style: TextStyle(color: prime),),
+      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,title: Text("Pending  Events",style: TextStyle(color: prime),),
           leading: IconButton(icon: Icon(Icons.arrow_back,color: prime,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_home()));
           },
           )),

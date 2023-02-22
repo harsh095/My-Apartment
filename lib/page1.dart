@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
-import 'package:my_apart/f_login.dart';
 import 'package:my_apart/Mamber/user_home.dart';
+
+import 'Main_Login.dart';
 
 class page1 extends StatefulWidget {
   const page1({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class _page1State extends State<page1> {
           }
           else
          {
-           return f_login();
+           return main_login();
          }
         }
       )

@@ -1,14 +1,17 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
-import 'package:flutter/services.dart';
+
+import '../constants/colors.dart';
+
+
+
 class profile_admin extends StatefulWidget {
   const profile_admin({super.key});
 
@@ -23,6 +26,10 @@ class _profile_adminState extends State<profile_admin> {
   String vehicles = "";
   String id = "";
   String imageUrl = "";
+  String update_name = "";
+  String update_flat = "";
+  String update_vehicle = "";
+
 
   void pickImage() async {
     final image = await ImagePicker().pickImage(
@@ -71,6 +78,171 @@ class _profile_adminState extends State<profile_admin> {
     super.initState();
   }
 
+  Future name_update() async
+  {
+    await FirebaseFirestore.instance
+        .collection('Secretary')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'Name':update_name,
+    });
+
+  }
+
+  Future flat_no_update() async
+  {
+    await FirebaseFirestore.instance
+        .collection('Secretary')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'Flat Number':update_flat,
+    });
+  }
+  Future vehicel_no_update() async
+  {
+    await FirebaseFirestore.instance
+        .collection('Secretary')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'Number of vehicles':update_vehicle,
+    });
+  }
+
+  displayNameTextDialog(BuildContext context) async
+  {
+    return showDialog(
+        context: context,
+        builder: (context)
+        {
+          return AlertDialog(
+            title: Text('Update Name'),
+            content: TextFormField(
+              onChanged: (value){
+                setState(() {
+                  update_name = value;
+                });
+              },
+              decoration: InputDecoration(hintText: "Enter Name"),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+                child: Text('Cancle',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                    primary:prime
+                ),
+              ),
+              ElevatedButton(
+                onPressed: (){
+                  name_update();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => profile_admin()));
+                },
+                child: Text('Save',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                    primary: prime
+                ),
+              )
+            ],
+          );
+        }
+    );
+  }
+
+
+
+
+  displayFlatTextDialog(BuildContext context) async
+  {
+    return showDialog(
+        context: context,
+        builder: (context)
+        {
+          return AlertDialog(
+            title: Text('Update Flat Number'),
+            content: TextFormField(
+              onChanged: (value){
+                setState(() {
+                  update_flat = value;
+                });
+              },
+              decoration: InputDecoration(hintText: "Enter Flat Number"),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+                child: Text('Cancle',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                    primary:prime
+                ),
+              ),
+              ElevatedButton(
+                onPressed: (){
+                  flat_no_update();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => profile_admin()));
+                },
+                child: Text('Save',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                    primary: prime
+                ),
+              )
+            ],
+          );
+        }
+    );
+  }
+  displayVehicleTextDialog(BuildContext context) async
+  {
+    return showDialog(
+        context: context,
+        builder: (context)
+        {
+          return AlertDialog(
+            title: Text('Update Number of Vehicles'),
+            content: TextFormField(
+              onChanged: (value){
+                setState(() {
+                  update_vehicle = value;
+                });
+              },
+              decoration: InputDecoration(hintText: "Enter Number of Vehicles"),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+                child: Text('Cancle',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                    primary: prime
+                ),
+              ),
+              ElevatedButton(
+                onPressed: (){
+                  vehicel_no_update();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => profile_admin()));
+                },
+                child: Text('Save',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                    primary: prime
+                ),
+              )
+            ],
+          );
+        }
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,145 +259,7 @@ class _profile_adminState extends State<profile_admin> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 450,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            'Name : ' + name,
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.black54,
-                            child: IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            'Email : ' + email,
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.black54,
-                            child: IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Flat NO : ' + flat_no,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Colors.black54,
-                          child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'No of Vehicles : ' + vehicles,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Colors.black54,
-                          child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Name : ' + name,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Colors.black54,
-                          child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                       GestureDetector(
 
-                       ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
           CustomPaint(
             child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -276,7 +310,154 @@ class _profile_adminState extends State<profile_admin> {
                 onPressed: () {},
               ),
             ),
-          )
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                    height: 410,
+                    width: double.infinity,
+                    margin: EdgeInsets.only(left: 25,right: 25,bottom: 30,),
+
+                    child: Container(
+
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(width: 2, color: Colors.black),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10,),
+
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                'Name : ' + name,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              CircleAvatar(
+                                backgroundColor: Colors.black54,
+                                child: IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {displayNameTextDialog(context);},
+                                ),
+                              ),
+                            ],
+                          ),
+
+
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  'Email : ' + email,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+
+                              children: [
+
+                                Text(
+                                  'Flat NO : ' + flat_no,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.black54,
+                                  child: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {displayFlatTextDialog(context);},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  'No of Vehicles : ' + vehicles,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.black54,
+                                  child: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {displayVehicleTextDialog(context);},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: GestureDetector(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      child: Text('ID : $id',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.deepOrangeAccent),
+                                      ),
+                                      onLongPress: (){
+                                        Clipboard.setData(ClipboardData(text: id)).whenComplete(() =>
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              const SnackBar(
+                                                content: Text('Text Copied'),
+                                              ),
+                                            )
+                                        );
+
+                                        // key.currentState.s(
+                                        //     new SnackBar(content: new Text("Copied to Clipboard"),));
+                                      },
+                                    )
+
+                                  ],
+                                ),
+                              )
+                          ),
+                          SizedBox(height: 10,),
+
+                        ],
+                      ),
+                    )
+                ),
+              ),
+            ],
+          ),
+
         ],
       ),
     );

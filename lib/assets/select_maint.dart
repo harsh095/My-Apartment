@@ -4,12 +4,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
-import 'package:my_apart/Sacretary/admin_login.dart';
-import 'package:my_apart/constants/colors.dart';
 import 'package:my_apart/assets/add_trans_ex.dart';
 import 'package:my_apart/assets/add_trans_income.dart';
-import 'package:my_apart/assets/admin_maintenance.dart';
-import 'package:my_apart/Mamber/user_login.dart';
 
 class select_maint extends StatelessWidget {
   get container => null;
@@ -94,7 +90,7 @@ class select_maint extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 16),
                             ),
                             child: Text(
-                              'Expanse'.toUpperCase(),
+                              'Expense'.toUpperCase(),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )))
                   ],

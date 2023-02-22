@@ -102,7 +102,7 @@ TextEditingController moneyEditController = TextEditingController();
           child: ListView(padding: EdgeInsets.all(12.0), children: [
             Center(
                 child: Text(
-                  "Add  Expanse Transaction!!",
+                  "Add Expense Transaction!!",
                   style: TextStyle(
                       fontSize: 26.0,
                       fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ TextEditingController moneyEditController = TextEditingController();
                   ),
                   padding: EdgeInsets.all(12.0),
                   child: Icon(
-                    Icons.attach_money,
+                    Icons.currency_rupee,
                     size: 24.0,
                     color: Colors.white,
                   ),
@@ -132,7 +132,7 @@ TextEditingController moneyEditController = TextEditingController();
                   child: TextFormField(
                       controller: moneyEditController,
                       decoration:
-                      InputDecoration(hintText: "0.0", border: InputBorder.none),
+                      InputDecoration(hintText: "0.0 \u20B9", border: InputBorder.none),
                       style: TextStyle(fontSize: 24.0),
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
@@ -218,7 +218,7 @@ TextEditingController moneyEditController = TextEditingController();
                   onPressed: () {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (context) => expance_admin()));
-                  }, child: Text('Show Expance Transaction!!')),
+                  }, child: Text('Show Expense Transaction!!')),
             ),
             SizedBox(height: 20.0),
             SizedBox(
@@ -263,7 +263,7 @@ TextEditingController moneyEditController = TextEditingController();
 
                       },
                 child: const Text(
-                  "Add Expanse",
+                  "Add Expense",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(

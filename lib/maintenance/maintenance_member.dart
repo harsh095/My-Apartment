@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_apart/Mamber/user_home.dart';
 
+import '../Mamber/main_paid_list.dart';
 import '../constants/colors.dart';
 
 class maintenance_member extends StatefulWidget {
@@ -97,7 +98,7 @@ class _maintenance_memberState extends State<maintenance_member> {
               id = snapshot.id;
 
               FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Total").get().then((value) =>
-                  value.docs.forEach( (snapshot)
+                  value.docs.forEach((snapshot)
                   {
                     FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Total").doc(snapshot.id).get().then((value) {
                       userid2 = value.get("userUid");
@@ -170,7 +171,7 @@ class _maintenance_memberState extends State<maintenance_member> {
 
                 SizedBox(width: 10,),
 
-                Text("$amount \$",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black)),
+                Text("$amount \u20B9",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black)),
               ],
             ),
             SizedBox(height: 20),
@@ -209,6 +210,12 @@ class _maintenance_memberState extends State<maintenance_member> {
             ),
 
             SizedBox(height: 20,),
+            SizedBox(height: 20.0),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => member_list_maintainance()));
+                }, child: Text('History of Maintenance')),
             SizedBox(height: 20.0),
             SizedBox(
               width: double.infinity,
@@ -252,6 +259,16 @@ class _maintenance_memberState extends State<maintenance_member> {
                             }).then((value) {
                               Fluttertoast.showToast(msg: "Payment Successful");
                               Navigator.pop(context);
+                              FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Members")
+                                  .doc(FirebaseAuth.instance.currentUser!.uid).collection("Member_Maintenance")
+                                  .doc().set({
+                                "Name":name,
+                                "Date":s1[0],
+                                "Time":s1[1],
+                                "Flat_No":flat,
+                                "userUid":userid,
+                                "Paid_Amount":amount.toString()
+                              });
                             }).catchError((e){
                               Fluttertoast.showToast(msg: "Payment Failed");
                             });

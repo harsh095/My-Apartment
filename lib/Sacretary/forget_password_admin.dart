@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_apart/Sacretary/admin_login.dart';
 
+import '../Main_Login.dart';
 import '../constants/colors.dart';
 
 
@@ -45,7 +45,7 @@ class _forgot_password_admin extends State<forgot_password_admin> {
     return Scaffold(
         appBar: AppBar(elevation: 0,title: Text("Reset Password",style: TextStyle(color: prime),
         ),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color:prime,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => admin_login()));},),
+          leading: IconButton(icon: Icon(Icons.arrow_back,color:prime,),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => main_login()));},),
           backgroundColor: Colors.white,),
 
         body: Form

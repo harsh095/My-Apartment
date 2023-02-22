@@ -5,6 +5,7 @@ import 'package:my_apart/chat/Member/widgets/group_tile_user.dart';
 import 'package:my_apart/chat/Member/widgets/widgets_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class GroupPageUser extends StatefulWidget {
   const GroupPageUser({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class GroupPageUser extends StatefulWidget {
 }
 
 class _GroupPageUserState extends State<GroupPageUser> {
+  final form_key = GlobalKey<FormState>();
+
   String userName = "";
   String adminId = "";
   String email = "";
@@ -132,74 +135,85 @@ class _GroupPageUserState extends State<GroupPageUser> {
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: ((context, setState) {
-            return AlertDialog(
-              title: const Text(
-                "Create a group",
-                textAlign: TextAlign.left,
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _isLoading == true
-                      ? Center(
-                    child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor),
-                  )
-                      : TextField(
-                    onChanged: (val) {
-                      setState(() {
-                        groupName = val;
-                      });
+            return Form(
+              key:form_key,
+              child: AlertDialog(
+                title: const Text(
+                  "Create a group",
+                  textAlign: TextAlign.left,
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _isLoading == true
+                        ? Center(
+                      child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColor),
+                    )
+                        : TextFormField(
+                      onChanged: (val) {
+                        setState(() {
+                          groupName = val;
+                        });
+                      },
+                    validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Name cannot be empty";
+                    }
                     },
-                   style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w400),
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.blueGrey),
-                            borderRadius: BorderRadius.circular(20)),
-                        errorBorder: OutlineInputBorder(
-                            borderSide:
-                            const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(20)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color:  Color(0xffF9A826)),
-                            borderRadius: BorderRadius.circular(20))),
+                      style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w400),
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.blueGrey),
+                              borderRadius: BorderRadius.circular(20)),
+                          errorBorder: OutlineInputBorder(
+                              borderSide:
+                              const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(20)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color:  Color(0xffF9A826)),
+                              borderRadius: BorderRadius.circular(20)))
+                      ,
+                    ),
+                  ],
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary:Color(0xffF9A826)),
+                    child: const Text("CANCEL",style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
+                  ElevatedButton(
+                    onPressed: () async {
+          if (form_key.currentState!.validate()) {
+            if (groupName != "") {
+              setState(() {
+                _isLoading = true;
+              });
+              DatabaseServiceUser(
+                  uid: FirebaseAuth.instance.currentUser!.uid, auid: id)
+                  .createGroup(userName,
+                  FirebaseAuth.instance.currentUser!.uid, groupName)
+                  .whenComplete(() {
+                _isLoading = false;
+              });
+              Navigator.of(context).pop();
+              showSnackbar(
+                  context, Colors.blueGrey, "Group created successfully.");
+            }
+          }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xffF9A826)),
+                    child: const Text("CREATE",style: TextStyle(fontWeight: FontWeight.bold)),
+                  )
                 ],
               ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary:Color(0xffF9A826)),
-                  child: const Text("CANCEL",style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (groupName != "") {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      DatabaseServiceUser(
-                          uid: FirebaseAuth.instance.currentUser!.uid,auid: id)
-                          .createGroup(userName,
-                          FirebaseAuth.instance.currentUser!.uid, groupName)
-                          .whenComplete(() {
-                        _isLoading = false;
-                      });
-                      Navigator.of(context).pop();
-                      showSnackbar(
-                          context, Colors.blueGrey, "Group created successfully.");
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: Color(0xffF9A826)),
-                  child: const Text("CREATE",style: TextStyle(fontWeight: FontWeight.bold)),
-                )
-              ],
             );
           }));
         });

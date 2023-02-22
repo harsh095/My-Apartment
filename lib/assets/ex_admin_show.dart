@@ -58,7 +58,7 @@ class _expance_adminState extends State<expance_admin> {
                 child: ListTile(
                   title: Text("Date : "+"${date.day.toString()} ${months[date.month - 1]} , ${date.year.toString()}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.blueGrey),),
                   subtitle: Text("Description : "+document['description'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.blueGrey)),
-                  trailing: Text("Amount : "+document['expense'], style: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold,),textScaleFactor: 1.5,
+                  trailing: Text("Amount : \u20B9"+document['expense'], style: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold,),textScaleFactor: 1.5,
                   ),
                   /*onTap: (){
                     showDialog(context: context, builder: (context){

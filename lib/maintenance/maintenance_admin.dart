@@ -184,7 +184,7 @@ class _maintenance_adminState extends State<maintenance_admin> {
 
                 SizedBox(width: 10,),
 
-                Text("$amount",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black)),
+                Text("$amount \u20B9",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black)),
                 IconButton(onPressed: (){displayAmountTextDialog(context);}, icon: Icon(Icons.edit),),
               ],
             ),

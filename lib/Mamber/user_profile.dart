@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_apart/Sacretary/admin_home.dart';
 import 'package:my_apart/Mamber/user_home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+import '../constants/colors.dart';
 
 // ignore: camel_case_types
 class user_profile extends StatefulWidget {
@@ -109,7 +112,7 @@ class _user_profileState extends State<user_profile> {
                 },
                 child: Text('Cancle',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.red
+                    primary: prime
                 ),
               ),
               ElevatedButton(
@@ -119,7 +122,7 @@ class _user_profileState extends State<user_profile> {
                 },
                 child: Text('Save',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.red
+                    primary: prime
                 ),
               )
             ],
@@ -128,49 +131,6 @@ class _user_profileState extends State<user_profile> {
     );
   }
 
-  displayEmailTextDialog(BuildContext context) async
-  {
-    return showDialog(
-        context: context,
-        builder: (context)
-        {
-          return AlertDialog(
-            title: Text('Update Email'),
-            content: TextFormField(
-              onChanged: (value){
-                setState(() {
-                  update_email = value;
-                });
-              },
-              decoration: InputDecoration(hintText: "Enter Email"),
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: (){
-                  setState(() {
-                    Navigator.pop(context);
-                  });
-                },
-                child: Text('Cancle',style: TextStyle(color: Colors.white),),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.red
-                ),
-              ),
-              ElevatedButton(
-                onPressed: (){
-                  email_update();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => user_profile()));
-                },
-                child: Text('Save',style: TextStyle(color: Colors.white),),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.red
-                ),
-              )
-            ],
-          );
-        }
-    );
-  }
   displayFlatTextDialog(BuildContext context) async
   {
     return showDialog(
@@ -196,7 +156,7 @@ class _user_profileState extends State<user_profile> {
                 },
                 child: Text('Cancle',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.red
+                    primary: prime
                 ),
               ),
               ElevatedButton(
@@ -206,7 +166,7 @@ class _user_profileState extends State<user_profile> {
                 },
                 child: Text('Save',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.red
+                    primary: prime
                 ),
               )
             ],
@@ -239,7 +199,7 @@ class _user_profileState extends State<user_profile> {
                 },
                 child: Text('Cancle',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.red
+                    primary: prime
                 ),
               ),
               ElevatedButton(
@@ -249,7 +209,7 @@ class _user_profileState extends State<user_profile> {
                 },
                 child: Text('Save',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.red
+                    primary: prime
                 ),
               )
             ],
@@ -343,40 +303,10 @@ class _user_profileState extends State<user_profile> {
                   MaterialPageRoute(builder: (context) => user_home()));
             })),
       ),
-      body: Stack(
+      body:  Stack(
         alignment: Alignment.center,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 450,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Name : ' + name,
-                      style: TextStyle(fontSize: 25),
-                    ),
-                    Text(
-                      'Email : ' + email,
-                      style: TextStyle(fontSize: 25),
-                    ),
-                    Text(
-                      'Flte NO : ' + flat_no,
-                      style: TextStyle(fontSize: 25),
-                    ),
-                    Text(
-                      'No Of vehicles : ' + vehicles,
-                      style: TextStyle(fontSize: 25),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+
           CustomPaint(
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -428,7 +358,126 @@ class _user_profileState extends State<user_profile> {
                 onPressed: () {},
               ),
             ),
-          )
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                    height: 410,
+                    width: double.infinity,
+                    margin: EdgeInsets.only(left: 25,right: 25,bottom: 30,),
+
+                    child: Container(
+
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(width: 2, color: Colors.black),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  'Name : ' + name,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.black54,
+                                  child: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {displayNameTextDialog(context);},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  'Email : ' + email,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+
+                              children: [
+
+                                Text(
+                                  'Flat NO : ' + flat_no,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.black54,
+                                  child: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {displayFlatTextDialog(context);},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  'No of Vehicles : ' + vehicles,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.black54,
+                                  child: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {displayVehicleTextDialog(context);},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+
+
+
+                        ],
+                      ),
+                    )
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -57,8 +57,8 @@ class _maintenance_paid_listState extends State<maintenance_paid_list> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100, 01));
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;

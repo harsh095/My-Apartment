@@ -1,16 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_apart/Mamber/request_member.dart';
 import 'package:my_apart/Mamber/user_profile.dart';
 
-import 'package:my_apart/f_login.dart';
 import 'package:my_apart/chat/Member/pages/group_page_user.dart';
 import 'package:my_apart/maintenance/maintenance_member.dart';
 
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-
+import '../Sacretary/aboutUS.dart';
 import '../constants/colors.dart';
+
+import '../Main_Login.dart';
 import 'compain_member.dart';
 import 'forget_password_user.dart';
 import 'my_apartment_member.dart';
@@ -23,6 +25,7 @@ class user_home extends StatefulWidget
 }
 
 class _user_homeState extends State<user_home> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,6 +41,8 @@ class _user_homeState extends State<user_home> {
   
 }
 class _h1State extends State<h1> {
+  DateTime timeBackPressed = DateTime.now();
+
   final _advancedDrawerController = AdvancedDrawerController();
   final user = FirebaseAuth.instance.currentUser;
   var name="",email="",imageUrl="";
@@ -88,236 +93,334 @@ class _h1State extends State<h1> {
 
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
-      child: Scaffold(
+      child: WillPopScope(
+        onWillPop: () async {
+          final difference = DateTime.now().difference(timeBackPressed);
+          final isExitWarning  = difference>=Duration(seconds: 2);
+          timeBackPressed = DateTime.now();
 
-        appBar: AppBar(
-            backgroundColor: Colors.orangeAccent,
-            title: Center(child: const Text('My Apartment',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+          if(isExitWarning)
+          {
+            Fluttertoast.showToast(msg: "Press back again to exit");
+            return false;
+          }
+          else{
+            Fluttertoast.cancel();
+            return true;
+          }
+        },
+        child: Scaffold(
 
-            leading: IconButton(
-              onPressed: _handleMenuButtonPressed,
-              icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                valueListenable: _advancedDrawerController,
-                builder: (_, value, __) {
-                  return AnimatedSwitcher(
-                    duration: Duration(milliseconds: 250),
-                    child: Icon(
-                      value.visible ? Icons.clear : Icons.menu,
-                      key: ValueKey<bool>(value.visible),
-                    ),
-                  );
-                },
+          appBar: AppBar(
+              backgroundColor: Colors.orangeAccent,
+              title: Center(child: const Text('My Apartment',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+              leading: IconButton(
+                onPressed: _handleMenuButtonPressed,
+                icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                  valueListenable: _advancedDrawerController,
+                  builder: (_, value, __) {
+                    return AnimatedSwitcher(
+                      duration: Duration(milliseconds: 250),
+                      child: Icon(
+                        value.visible ? Icons.clear : Icons.menu,
+                        key: ValueKey<bool>(value.visible),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            actions: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(right: 20.0),
-                  child: GestureDetector(
-                    onTap: () {Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => GroupPageUser()));},
-                    child: Icon(
-                      Icons.message,
-                      size: 26.0,
-                    ),
-                  )
-              ),]
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  Transform.rotate(
-                    origin: Offset(30, -60),
-                    angle: 2.4,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        left: 75,
-                        top: 40,
+              actions: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      onTap: () {Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => GroupPageUser()));},
+                      child: Icon(
+                        Icons.message,
+                        size: 26.0,
                       ),
-                      height: 400,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomLeft,
-                          colors: [Color(0xffF9A826), Colors.blueGrey],
+                    )
+                ),]
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Transform.rotate(
+                      origin: Offset(30, -60),
+                      angle: 2.4,
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          left: 75,
+                          top: 40,
                         ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Glassify Transaction',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
+                        height: 400,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80),
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomLeft,
+                            colors: [Color(0xffF9A826), Colors.blueGrey],
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Glassify this transaction into a \n pticular catigory ',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Glassify Transaction',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Glassify this transaction into a \n pticular catigory ',
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 167,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/img_9.png',
+                                              width: 120,
+                                              height: 120,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Profile',
+                                              style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_9.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Profile',
-                                            style: TextStyle(color: Color(0xFF47B4FF), fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
+                                      onTap:(){Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => user_profile()));},
                                     ),
-                                    onTap:(){Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => user_profile()));},
-                                  ),
 
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 167,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                    SizedBox(width: 10,),
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 167,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 7,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/abc.png',
+                                              width: 120,
+                                              height: 120,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Event Requst',
+                                              style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/abc.png',
-                                            width: 120,
-                                            height: 120,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Event Requst',
-                                            style: TextStyle(color: Colors.lightGreenAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
+                                      onTap:() {Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => request()));},
                                     ),
-                                    onTap:() {Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => request()));},
-                                  ),
 
-                                ],
-                              ),
+                                  ],
+                                ),
 
 
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 177,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+
+
+
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 177,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/main.png',
+                                              width: 100,
+                                              height: 100,
+                                            ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              'Pay Maintanance',
+                                              style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      child: Column(
-                                        children: [
 
-                                          Image.asset(
-                                            'assets/images/img_15.png',
-                                            width: 150,
-                                            height: 150,
-                                          ),
-
-                                          Text(
-                                            'Asset ',
-                                            style: TextStyle(color: Colors.lightBlueAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    onTap:() {},
-                                  ),
-
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                    child: Container(
-                                      height: 177,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.blueGrey.shade400.withOpacity(0.3),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/img_16.png',
-                                            width: 100,
-                                            height: 100,
-                                          ),
-                                          SizedBox(
-                                            height: 30,
-                                          ),
-                                          Text(
-                                            'Setting',
-                                            style: TextStyle(color: Colors.yellowAccent, fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
 
                                       onTap:() {Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Complain_member()));},
-                                  ),
+                                          MaterialPageRoute(builder: (context) => maintenance_member()));},
+                                    ),
 
-                                ],
-                              ),
-                            ],
+                                    SizedBox(width: 10,),
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 177,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/com.png',
+                                              width: 100,
+                                              height: 100,
+                                            ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              'Complain',
+                                              style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                        onTap:() {Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Complain_member()));},
+                                    ),
+
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+
+
+
+
+
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 177,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                        ),
+                                        child: Column(
+                                          children: [
+
+                                            Image.asset(
+                                              'assets/images/img_21.png',
+                                              width: 150,
+                                              height: 150,
+                                            ),
+
+                                            Text(
+                                              'About As ',
+                                              style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      onTap:() {Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => AboutPage()));},
+                                    ),
+                                    SizedBox(width: 10,),
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 177,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade400.withOpacity(0.3),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/img_16.png',
+                                              width: 100,
+                                              height: 100,
+                                            ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              'Setting',
+                                              style: TextStyle(color: blg, fontSize: 18,fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+
+                                      onTap:() {},
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -368,25 +471,10 @@ class _h1State extends State<h1> {
                   leading: Icon(Icons.account_circle_rounded),
                   title: Text('Profile'),
                 ),
-                ListTile(
-                  onTap: () {Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => maintenance_member()));},
-                  leading: Icon(Icons.monetization_on_outlined),
-                  title: Text('Pay Maintanance'),
-                ),
-                ListTile(
-                  onTap: () {Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => request()));},
-                  leading: Icon(Icons.event),
-                  title: Text('Request for Event'),
-                ),
 
 
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
+
+
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(
@@ -396,19 +484,11 @@ class _h1State extends State<h1> {
                   leading: Icon(Icons.key_off),
                   title: Text('Forget Password'),
                 ),
+
                 ListTile(
                   onTap: () {FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => my_apartment_member()));
-                  });
-                  },
-                  leading: Icon(Icons.account_balance_outlined),
-                  title: Text('About us'),
-                ),
-                ListTile(
-                  onTap: () {FirebaseAuth.instance.signOut().then((value) {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => f_login()));
+                        context, MaterialPageRoute(builder: (context) => main_login()));
                   });
                     },
                   leading: Icon(Icons.logout),

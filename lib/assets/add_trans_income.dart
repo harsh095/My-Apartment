@@ -124,7 +124,7 @@ class _add_trans_inState extends State<add_trans_in> {
                   ),
                   padding: EdgeInsets.all(12.0),
                   child: Icon(
-                    Icons.attach_money,
+                    Icons.currency_rupee,
                     size: 24.0,
                     color: Colors.white,
                   ),
@@ -136,7 +136,7 @@ class _add_trans_inState extends State<add_trans_in> {
                   child: TextFormField(
                       controller: moneyEditController,
                       decoration:
-                      InputDecoration(hintText: "0.0", border: InputBorder.none),
+                      InputDecoration(hintText: "0.0 \u20B9", border: InputBorder.none),
                       style: TextStyle(fontSize: 24.0),
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,

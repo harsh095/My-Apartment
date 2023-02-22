@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_apart/Mamber/user_home.dart';
-import 'package:my_apart/Sacretary/admin_home.dart';
-import 'package:my_apart/Sacretary/request_sec_fun.dart';
 
 import '../constants/colors.dart';
-
 
 class request extends StatefulWidget {
   const request({Key? key}) : super(key: key);
@@ -32,6 +29,9 @@ class _requestState extends State<request> {
   String userid = "";
   String id = "";
   String name = "";
+  String? value;
+  String flat = "";
+  final Items = ["Birthday Party","Marriage","funeral","festivals"];
 
   var date;
   int flag = 0;
@@ -84,6 +84,7 @@ class _requestState extends State<request> {
             userid = value.get("userUid");
             name = value.get("Name");
             res = value.get("Event_request_answer");
+            flat = value.get("Flat Number");
 
             if(userid == FirebaseAuth.instance.currentUser!.uid)
             {
@@ -99,22 +100,20 @@ class _requestState extends State<request> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.white,elevation: 0,
           title: Text(
-            'Request for Event',
+            'Request for Use',
             style: TextStyle(
                 color: prime, fontWeight: FontWeight.bold, fontSize: 25),
           ),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color:  prime,
+                color: prime,
               ),
               onPressed: (() {
                 Navigator.push(context,
@@ -139,20 +138,7 @@ class _requestState extends State<request> {
             SizedBox(
               height: 15,
             ),
-            /*TextFormField(
-                controller: dateEditController,
-                decoration: InputDecoration(
-                    filled: true,
-                    hintText: "Enter Date of Event",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                    fillColor: Colors.grey.shade100
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Date cannot be empty";
-                  }
-                }
-            ),*/
+
             SizedBox(
               height: 50.0,
               child: TextButton(
@@ -194,7 +180,7 @@ class _requestState extends State<request> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: prime,
+                    color:  prime,
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   padding: EdgeInsets.all(12.0),
@@ -208,17 +194,27 @@ class _requestState extends State<request> {
                   width: 12.0,
                 ),
                 Expanded(
-                  child: TextFormField(
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField<String>(
+                          hint: Text(Items[0],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color:Colors.blueGrey),),
+                          isExpanded: true,
+                          value: value,
+                          items: Items.map(buildMenuItem).toList(),
+                          onChanged: (value) => setState(() => this.value = value,)
+                      ),
+                    )
+
+                  /*TextFormField(
                       controller: discriptionEditController,
                       decoration: InputDecoration(
                           hintText: "Description About Function!",
-                          border: InputBorder.none,),
+                          border: InputBorder.none),
                       style: TextStyle(fontSize: 20.0),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Description cannot be empty";
+                          return "Amount cannot be empty";
                         }
-                      }),
+                      }),*/
                 ),
               ],
             ),
@@ -272,6 +268,11 @@ class _requestState extends State<request> {
 
                   if(form_key.currentState!.validate())
                   {
+                    if(value == null)
+                    {
+                      value = Items[0];
+                    }
+
                     FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Event_Request").get().then((value) =>
                     // ignore: avoid_function_literals_in_foreach_calls
                     value.docs.forEach((snapshot)
@@ -299,6 +300,7 @@ class _requestState extends State<request> {
                             Flat3dButton(onPressed:(){
                               Navigator.pop(context);
                             } ,child: Text("Cancel"),
+                              color: Colors.blueGrey,
                             ),
                             Flat3dButton(onPressed:() async {
                               if(flag>0)
@@ -312,7 +314,9 @@ class _requestState extends State<request> {
                                         Navigator.pop(context);
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => request()));
                                       } ,child: Text("OK"),
+                                        color: Colors.blueGrey,
                                       ),
+
                                     ],
                                   );
                                 });
@@ -325,15 +329,16 @@ class _requestState extends State<request> {
                                     {
                                       'member name':name,
                                       'date':s1[0],
-                                      'description':discriptionEditController.text,
+                                      'description':value,
                                       'time':timeEditController.text,
                                       'Answer':"",
                                       'userUid':FirebaseAuth.instance.currentUser!.uid,
+                                      "Flat_No": flat
                                     }
                                 ).then((value) {
                                   String request = discriptionEditController.text;
                                   // ignore: unrelated_type_equality_checks
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => user_home()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) =>   user_home()));
                                   Fluttertoast.showToast(msg: "Request Send Successfully");
 
                                   FirebaseFirestore.instance.collection("Secretary").doc(id).collection("Members").doc(FirebaseAuth.instance.currentUser!.uid)
@@ -349,6 +354,7 @@ class _requestState extends State<request> {
                                 );
                               }
                             } ,child: Text("Send"),
+                              color: Colors.blueGrey,
                             )
                           ],
                         );
@@ -362,8 +368,12 @@ class _requestState extends State<request> {
             ),
             Container(child: Center(child: Text(res)),),
 
-
           ]),
         ));
   }
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+    value: item,
+    child: Text(item,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.blue),
+    ),
+  );
 }

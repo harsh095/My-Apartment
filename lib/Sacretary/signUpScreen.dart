@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'admin_login.dart';
+import '../Main_Login.dart';
+
 
 
 class SignUpScreen extends StatefulWidget {
@@ -183,7 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   //FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password)
 
                                   Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => admin_login()));
+                                      builder: (context) => main_login()));
                                   //FirebaseAuth.instance.tenantId(user.uid);
                                 });
                               }).catchError((e) {

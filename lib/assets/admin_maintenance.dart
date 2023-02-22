@@ -103,7 +103,7 @@ class _admin_maintState extends State<admin_maint> with TickerProviderStateMixin
                     height: 8.0,
                   ),
                   Text(
-                    '$tot\$' ,
+                    '\u20B9 $tot' ,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 30.0,
@@ -188,7 +188,7 @@ Widget cardIncome(String value) {
             ),
           ),
           Text(
-            '$value\$',
+            '\u20B9 $value',
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w700,
@@ -234,7 +234,7 @@ Widget cardExpense(String value) {
             ),
           ),
           Text(
-            '$value\$',
+            '\u20B9 $value',
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w700,
